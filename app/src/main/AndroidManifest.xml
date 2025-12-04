@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Package visibility: allow querying receivers for vendor actions on Android 11+ -->
+    <queries>
+        <intent>
+            <action android:name="nlscan.intent.action.DEVICE_REBOOT" />
+        </intent>
+        <intent>
+            <action android:name="nlscan.intent.action.DEVICE_FACTORY_RESET" />
+        </intent>
+        <intent>
+            <action android:name="nlscan.action.RUN_SYSTEM_UPDATE" />
+        </intent>
+    </queries>
+
+    <!-- Exact alarm permission for scheduling precise reboot time on Android 12+ -->
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.NLSDemoCtr">
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.NLSDemoCtr">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <receiver
+            android:name=".RebootSchedulerReceiver"
+            android:exported="false"
+            android:enabled="true" />
+    </application>
+
+</manifest>
